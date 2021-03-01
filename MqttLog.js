@@ -17,9 +17,9 @@ export default function MqttLog(props) {
   const [text, setText] = useState('');
 
   const [clientInfo] = useState({
-    BROKER: 'broker.mqttdashboard.com',
-    PORT: '8000',
-    TOPIC: 'WORLD',
+    BROKER: '192.168.0.165',
+    PORT: '1883',
+    TOPIC: 'testTopic',
   });
 
   // eslint-disable-next-line no-undef
@@ -31,8 +31,9 @@ export default function MqttLog(props) {
 
   useEffect(() => {
     try {
-      client.connect({ onSuccess: onConnect, useSSL: false });
-      console.log('Connected!');
+      client.connect({
+        onSuccess: onConnect, useSSL: false, userName: 'pi', password: 'password'
+      });
     } catch (err) {
       console.log(`Can not connect. Error: ${err.message}.`);
     }
@@ -48,6 +49,7 @@ export default function MqttLog(props) {
 
   function onConnect() {
     try {
+      console.log('Connected!');
       client.subscribe(clientInfo.TOPIC);
       console.log(`Client subscribed in Topic ${clientInfo.TOPIC}!`);
     } catch (err) {
