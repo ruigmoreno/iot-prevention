@@ -1,9 +1,9 @@
 /**
- * Sample React Native App
- * https://github.com/facebook/react-native
+ * App to detect temperature and to alert user with high temperature.
  *
- * @format
- * @flow strict-local
+ * @author Rui Moreno
+ * @see https://github.com/ruigmoreno/iot-prevention
+ *
  */
 
 import React from 'react';
@@ -17,30 +17,52 @@ import {
 } from 'react-native';
 
 import {
-  Header,
   Colors,
 } from 'react-native/Libraries/NewAppScreen';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
 
 import MqttLog from './MqttLog';
 
-function App() {
+const Stack = createStackNavigator();
+
+function HomeScreen() {
   return (
     <>
-      <StatusBar barStyle="white-content" />
+      <StatusBar barStyle="white-content" backgroundColor="#1A8A5A" />
       <SafeAreaView>
         <ScrollView
           contentInsetAdjustmentBehavior="automatic"
-          style={styles.scrollView}>
-          <Header />
+          style={styles.scrollView}
+        >
           <View style={styles.body}>
             <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>Let's test MQTT</Text>
+              <Text style={styles.sectionTitle}>Temperature</Text>
             </View>
             <MqttLog style={styles.sectionContainer} />
           </View>
         </ScrollView>
       </SafeAreaView>
     </>
+  );
+}
+
+function App() {
+  return (
+    <NavigationContainer>
+      <Stack.Navigator
+        screenOptions={{
+          headerStyle: { backgroundColor: '#1A8A5A' },
+          headerTintColor: '#fff'
+        }}
+      >
+        <Stack.Screen
+          name="Home"
+          component={HomeScreen}
+          options={{ title: 'SoSBurned' }}
+        />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
 
@@ -54,7 +76,7 @@ const styles = StyleSheet.create({
   },
   body: {
     backgroundColor: Colors.white,
-    height: 500
+    height: 800,
   },
   sectionContainer: {
     marginTop: 32,
