@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "524820016741",
+    "project_id": "noted-reef-297300",
+    "storage_bucket": "noted-reef-297300.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:524820016741:android:1717b61ae470075223608c",
+        "android_client_info": {
+          "package_name": "com.awesomeproject"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "524820016741-h0phfblahekj8ucfij574uf5pfjojn13.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAN6cDoWbGnJfCXXGD-trAHGR4P9B8zcdw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "524820016741-h0phfblahekj8ucfij574uf5pfjojn13.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

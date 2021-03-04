@@ -6,7 +6,7 @@
  *
  */
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
   SafeAreaView,
   StyleSheet,
@@ -21,8 +21,11 @@ import {
 } from 'react-native/Libraries/NewAppScreen';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
+import BackgroundFetch from 'react-native-background-fetch';
+import PushNotification from 'react-native-push-notification';
 
-import MqttLog from './MqttLog';
+// import LocalNotification from './src/service/LocalPushController';
+import MqttLog from './src/service/MqttLog';
 
 const Stack = createStackNavigator();
 

@@ -1,7 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, {
+  useCallback, useEffect, useLayoutEffect, useState
+} from 'react';
 import init from 'react_native_mqtt';
 import { Text, View } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+// import PushNotification from 'react-native-push-notification';
+import { showNotification } from './LocalPushController';
 
 init({
   size: 10000,
@@ -12,12 +16,13 @@ init({
 });
 
 export default function MqttLog(props) {
+  const [temp, setTemp] = useState(0);
   const { style } = props;
   const clientID = Math.floor(Math.random() * 10000) + 1;
-  const [text, setText] = useState('');
+  let flag = true;
 
   const [clientInfo] = useState({
-    BROKER: '192.168.0.130',
+    BROKER: '192.168.0.156',
     PORT: '8080',
     TOPIC: 'testTopic',
   });
@@ -28,6 +33,10 @@ export default function MqttLog(props) {
     Number(clientInfo.PORT),
     `clientId-${clientID}`,
   );
+
+  useLayoutEffect(useCallback(() => {
+    // showNotification('My Fist Notification', 'Hello World!!');
+  }));
 
   useEffect(() => {
     try {
@@ -42,9 +51,19 @@ export default function MqttLog(props) {
     return () => client.disconnect();
   }, []);
 
+  const fireNotification = () => {
+    showNotification('ALERTA!', 'Temperatura ultrapassou o limite!');
+    console.log('Fire notification');
+  };
+
   function pushText(entry) {
-    setText(entry);
-    console.log(entry);
+    const temperature = Number(parseFloat(entry).toFixed(2));
+    if (temperature > 60 && flag === true) {
+      flag = false;
+      fireNotification();
+    }
+    // if (temperature <= 35.0) flag = true;
+    setTemp(parseFloat(entry).toFixed(2));
   }
 
   function onConnect() {
@@ -69,10 +88,9 @@ export default function MqttLog(props) {
 
   return (
     <View style={style}>
-      <Text style={{ fontSize: 20, marginBottom: 10 }}>System Log</Text>
-      <Text style={{ fontSize: 18, alignContent: 'center' }}>
+      <Text style={{ fontSize: 24, alignContent: 'center' }}>
         {' '}
-        {text}
+        {`${temp}`}
         {' '}
         &deg;C
       </Text>
