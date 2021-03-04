@@ -17,8 +17,8 @@ export default function MqttLog(props) {
   const [text, setText] = useState('');
 
   const [clientInfo] = useState({
-    BROKER: '192.168.0.165',
-    PORT: '1883',
+    BROKER: '192.168.0.130',
+    PORT: '8080',
     TOPIC: 'testTopic',
   });
 
